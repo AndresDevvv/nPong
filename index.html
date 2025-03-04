@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nPong - Multidimensional Pong</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>nPong</h1>
+        <div class="canvas-container">
+            <canvas id="gameCanvas"></canvas>
+        </div>
+        <div class="controls">
+            <div class="game-mode-selection">
+                <h3>Game Mode</h3>
+                <div class="mode-buttons">
+                    <button id="singlePlayerMode" class="mode-button active">1 Player</button>
+                    <button id="twoPlayerMode" class="mode-button">2 Players</button>
+                </div>
+            </div>
+            
+            <!-- AI Difficulty Selection -->
+            <div id="aiDifficultySelection" class="difficulty-selection">
+                <h3>AI Difficulty</h3>
+                <div class="difficulty-buttons">
+                    <button id="easyDifficulty" class="difficulty-button">Easy</button>
+                    <button id="mediumDifficulty" class="difficulty-button active">Medium</button>
+                    <button id="hardDifficulty" class="difficulty-button">Hard</button>
+                </div>
+            </div>
+            
+            <!-- Map Size Selection -->
+            <div id="mapSizeSelection" class="map-size-selection">
+                <h3>Map Size</h3>
+                <div class="map-size-buttons">
+                    <button id="smallMapSize" class="map-size-button">Small</button>
+                    <button id="normalMapSize" class="map-size-button active">Normal</button>
+                    <button id="largeMapSize" class="map-size-button">Large</button>
+                </div>
+            </div>
+            
+            <button id="startButton">Start Game</button>
+            <div class="score-container">
+                <div class="score">
+                    <span id="leftPlayerLabel">Player:</span>
+                    <span id="playerScore">0</span>
+                </div>
+                <div class="score">
+                    <span id="rightPlayerLabel">AI:</span>
+                    <span id="aiScore">0</span>
+                </div>
+            </div>
+            <div class="dimension-info">
+                <span>Current Dimension:</span>
+                <span id="currentDimension">1</span>
+            </div>
+        </div>
+    </div>
+    <div class="instructions">
+        <h2>How to Play</h2>
+        <div id="singlePlayerInstructions">
+            <p>Use <strong>ARROW KEYS</strong> or <strong>W</strong>/<strong>S</strong> keys to move the paddle up and down.</p>
+            <p>Use <strong>A</strong>/<strong>D</strong> keys or <strong>LEFT</strong>/<strong>RIGHT</strong> arrow keys to move the paddle left and right.</p>
+            <p>Moving the paddle <strong>faster</strong> when hitting the ball will make it shoot off <strong>faster</strong>!</p>
+            <p>Move quickly in the <strong>opposite direction</strong> to hit the ball <strong>behind</strong> your paddle!</p>
+            <p>Press <strong>SPACEBAR</strong> to create a boost field in front of your paddle that accelerates the ball when it passes through! (3-second cooldown)</p>
+        </div>
+        <div id="twoPlayerInstructions" style="display: none;">
+            <p>Player 1: Use <strong>W</strong>/<strong>S</strong> keys to move the left paddle up/down and <strong>A</strong>/<strong>D</strong> keys to move left/right.</p>
+            <p>Player 2: Use <strong>ARROW UP</strong>/<strong>DOWN</strong> keys to move the right paddle up/down and <strong>LEFT</strong>/<strong>RIGHT</strong> keys to move left/right.</p>
+            <p>Moving paddles <strong>faster</strong> when hitting the ball will make it shoot off <strong>faster</strong>!</p>
+            <p>Move quickly in the <strong>opposite direction</strong> to hit the ball <strong>behind</strong> your paddle!</p>
+            <p>Player 1: Press <strong>SHIFT</strong> to create a boost field | Player 2: Press <strong>SPACEBAR</strong> to create a boost field!</p>
+        </div>
+        <p>When the ball passes through a portal, it enters a new dimension with different physics!</p>
+        <p>Each dimension has unique visual effects and gameplay mechanics.</p>
+        <p class="focus-note"><strong>Note:</strong> Click on the game area to lock keyboard focus. This prevents arrow keys from scrolling the page.</p>
+    </div>
+    <script src="js/game.js"></script>
+</body>
+</html> 

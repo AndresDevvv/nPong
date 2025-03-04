@@ -1,0 +1,512 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+:root {
+    --primary-color: #00ffff;
+    --secondary-color: #ff00ff;
+    --background-color: #0a0a15;
+    --text-color: #ffffff;
+    --glow-intensity: 8px;
+    --panel-bg: rgba(0, 10, 20, 0.7);
+    --border-glow: 0 0 15px rgba(0, 255, 255, 0.7);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    overflow-x: hidden;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(0, 255, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 0, 255, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 20, 40, 0.9) 100%);
+    background-attachment: fixed;
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: var(--primary-color);
+    text-shadow: 
+        0 0 var(--glow-intensity) var(--primary-color),
+        0 0 2px #ffffff;
+    animation: glow 3s infinite alternate, pulse 5s infinite;
+    position: relative;
+}
+
+h1::after {
+    content: 'MULTIDIMENSIONAL PONG';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 3px;
+    color: var(--secondary-color);
+    opacity: 0.8;
+    text-shadow: 0 0 5px var(--secondary-color);
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 var(--glow-intensity) var(--primary-color), 0 0 2px #ffffff;
+    }
+    to {
+        text-shadow: 0 0 calc(var(--glow-intensity) * 2) var(--secondary-color), 0 0 4px #ffffff;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+}
+
+.game-container {
+    width: 100%;
+    max-width: 850px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.canvas-container {
+    width: 100%;
+    position: relative;
+    margin: 1rem 0;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 
+        0 0 var(--glow-intensity) var(--primary-color),
+        inset 0 0 var(--glow-intensity) var(--primary-color),
+        0 10px 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transform: perspective(800px) rotateX(2deg);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.canvas-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    z-index: 1;
+    animation: scanline 3s linear infinite;
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(500%);
+    }
+}
+
+.canvas-container:hover {
+    transform: perspective(800px) rotateX(0deg);
+    box-shadow: 
+        0 0 calc(var(--glow-intensity) * 1.5) var(--primary-color),
+        inset 0 0 var(--glow-intensity) var(--primary-color),
+        0 15px 30px rgba(0, 0, 0, 0.5);
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 6px;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+canvas:focus {
+    outline: none;
+}
+
+.controls {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: var(--panel-bg);
+    border-radius: 10px;
+    border: 1px solid var(--primary-color);
+    box-shadow: var(--border-glow);
+    transition: all 0.3s ease;
+}
+
+.game-mode-selection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.game-mode-selection h3 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+}
+
+.game-mode-selection h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+}
+
+.mode-selection, .difficulty-selection {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.mode-buttons, .difficulty-buttons, .map-size-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.mode-button, .difficulty-button, .map-size-button {
+    background-color: rgba(20, 20, 40, 0.8);
+    color: #7f7f7f;
+    border: 2px solid #7f7f7f;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.mode-button::before, .difficulty-button::before, .map-size-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: 0.5s;
+}
+
+.mode-button:hover::before, .difficulty-button:hover::before, .map-size-button:hover::before {
+    left: 100%;
+}
+
+.mode-button:hover, .difficulty-button:hover, .map-size-button:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+    text-shadow: 0 0 5px var(--primary-color);
+}
+
+.mode-button.active, .difficulty-button.active, .map-size-button.active {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--primary-color-faint);
+    text-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Different colors for difficulty levels */
+#easyDifficulty.active {
+    border-color: #00ff00;
+    color: #00ff00;
+    background-color: rgba(0, 50, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+#mediumDifficulty.active {
+    border-color: #ffff00;
+    color: #ffff00;
+    background-color: rgba(50, 50, 0, 0.5);
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+}
+
+#hardDifficulty.active {
+    border-color: #ff0000;
+    color: #ff0000;
+    background-color: rgba(50, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+/* Hide difficulty selection in two-player mode */
+.difficulty-selection.hidden {
+    display: none;
+}
+
+.score-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    border: 1px solid var(--primary-color);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+.score:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.7);
+}
+
+.score::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        transparent, 
+        rgba(0, 255, 255, 0.1), 
+        transparent
+    );
+    animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.score span:first-child {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.score span:last-child {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-shadow: 0 0 5px var(--primary-color);
+    position: relative;
+    z-index: 1;
+}
+
+.dimension-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    border-top: 1px solid rgba(0, 255, 255, 0.2);
+    width: 100%;
+    text-align: center;
+}
+
+#currentDimension {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+    text-shadow: 0 0 var(--glow-intensity) var(--secondary-color);
+    margin-top: 0.5rem;
+    letter-spacing: 1px;
+}
+
+button {
+    background-color: rgba(0, 20, 40, 0.7);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 1rem 2.5rem;
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    box-shadow: 0 0 var(--glow-intensity) rgba(0, 255, 255, 0.5);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    opacity: 0.1;
+}
+
+button:hover::before {
+    transform: scaleX(1);
+}
+
+button:hover {
+    background-color: rgba(0, 30, 50, 0.9);
+    color: #ffffff;
+    transform: translateY(-5px);
+    box-shadow: 
+        0 0 calc(var(--glow-intensity) * 1.5) var(--primary-color),
+        0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    transform: translateY(-2px);
+}
+
+.instructions {
+    width: 100%;
+    max-width: 850px;
+    margin-top: 2rem;
+    background-color: var(--panel-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid var(--secondary-color);
+    box-shadow: 0 0 var(--glow-intensity) var(--secondary-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.instructions::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--secondary-color), transparent);
+}
+
+.instructions h2 {
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+    letter-spacing: 3px;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.instructions h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--secondary-color), transparent);
+}
+
+.instructions p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    padding-left: 1rem;
+    border-left: 2px solid rgba(255, 0, 255, 0.3);
+}
+
+.instructions strong {
+    color: #ffffff;
+    text-shadow: 0 0 2px #ffffff;
+}
+
+.focus-note {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    border-left: 3px solid var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .instructions {
+        padding: 1.5rem;
+    }
+}
+
+.portal-effect {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Map size button specific active styles */
+#smallMapSize.active {
+    color: #00ccff;
+    border-color: #00ccff;
+    box-shadow: 0 0 15px #00ccff, 0 0 30px rgba(0, 204, 255, 0.3);
+    text-shadow: 0 0 10px #00ccff;
+}
+
+#normalMapSize.active {
+    color: #00ffcc;
+    border-color: #00ffcc;
+    box-shadow: 0 0 15px #00ffcc, 0 0 30px rgba(0, 255, 204, 0.3);
+    text-shadow: 0 0 10px #00ffcc;
+}
+
+#largeMapSize.active {
+    color: #ccff00;
+    border-color: #ccff00;
+    box-shadow: 0 0 15px #ccff00, 0 0 30px rgba(204, 255, 0, 0.3);
+    text-shadow: 0 0 10px #ccff00;
+} 
