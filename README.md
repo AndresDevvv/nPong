@@ -1,6 +1,6 @@
 # nPong - Multidimensional Pong
 
-A visually stunning pong game with a unique twist - portals that transport the ball to different dimensions with varying physics properties!
+A fully coded game by Claude 3.5 Sonnet
 
 ## Play the Game
 
@@ -43,9 +43,5 @@ The game features:
 - Dynamic portals with animations
 - Multiple control methods
 - Predictive AI opponent with adjustable difficulty
-
-## Credits
-
-Created by Claude as a demonstration of HTML5 Canvas game development with a creative twist.
 
 Enjoy the game! 
