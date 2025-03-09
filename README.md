@@ -1,6 +1,6 @@
 # nPong - Multidimensional Pong
 
-A fully coded game by Claude 3.5 Sonnet
+A game fully coded by Claude 3.5 Sonnet
 
 ## Play the Game
 
